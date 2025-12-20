@@ -1,0 +1,53 @@
+
+---CREATE TABLES "STUDENTS AND SUBJECTS"
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    gender VARCHAR(10),
+    course VARCHAR(50)
+);
+CREATE TABLE Subjects(
+subject_id INT PRIMARY KEY,
+    subject_name VARCHAR(50),
+    student_id INT,
+    FOREIGN KEY (student_id) REFERENCES Students(student_id)
+);
+
+
+---INSERT DATA
+INSERT INTO Students (student_id, name, age, gender, course)
+VALUES 
+(1, 'Navya', 20, 'Female', 'Computer Science'),
+(2, 'Rahul', 22, 'Male', 'Electronics'),
+(3, 'Sita', 21, 'Female', 'Mechanical'),
+(4, 'Amit', 23, 'Male', 'Civil');
+ INSERT INTO Subjects (subject_id, subject_name, student_id)
+VALUES
+(1, 'Mathematics', 1),
+(2, 'Physics', 2),
+(3, 'Chemistry', 1),
+(4, 'Computer Science', 3),
+(5, 'Biology', 4);
+
+
+---VIEW ALL RECORDS
+select * from students;
+ select * from subjects;
+
+--- JOINS
+select s.name,s.course,sb.subject_name from Students s
+ join Subjects sb
+ on s.student_id = sb.student_id;
+
+select s.name,s.course,sb.subject_name from Students s
+ left join Subjects sb
+ on s.student_id = sb.student_id
+ order by name asc;
+
+select s.name,s.course, count(sb.subject_name) from Students s
+ right join Subjects sb
+ on s.student_id = sb.student_id
+ group by s.name,s.course
+ order by name asc;
+
